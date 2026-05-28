@@ -23,18 +23,6 @@ const app = exp();
 
 
 // =======================
-// ALLOWED FRONTEND URLS
-// =======================
-
-const allowedOrigins = [
-
-  "https://society-management-app-ten.vercel.app",
-
-  "https://society-management-qt2bi79xp-23eg105e34-commits-projects.vercel.app"
-];
-
-
-// =======================
 // CORS CONFIG
 // =======================
 
@@ -47,7 +35,8 @@ app.use(
       callback
     ) {
 
-      // ALLOW POSTMAN / MOBILE APPS
+      // ALLOW REQUESTS WITHOUT ORIGIN
+      // (POSTMAN, MOBILE APPS, ETC.)
       if (!origin) {
 
         return callback(
@@ -56,23 +45,27 @@ app.use(
         );
       }
 
+
+      // ALLOW ALL VERCEL DOMAINS
       if (
-        allowedOrigins.includes(origin)
+        origin.includes(
+          "vercel.app"
+        )
       ) {
 
-        callback(
+        return callback(
           null,
           true
         );
-
-      } else {
-
-        callback(
-          new Error(
-            "Not allowed by CORS"
-          )
-        );
       }
+
+
+      // BLOCK OTHER ORIGINS
+      return callback(
+        new Error(
+          "Not allowed by CORS"
+        )
+      );
     },
 
     methods: [
@@ -86,6 +79,10 @@ app.use(
     credentials: true
   })
 );
+
+
+// HANDLE PREFLIGHT REQUESTS
+app.options("*", cors());
 
 
 // BODY PARSER
@@ -219,7 +216,8 @@ app.use((err, req, res, next) => {
 
   // VALIDATION ERROR
   if (
-    err.name === "ValidationError"
+    err.name ===
+    "ValidationError"
   ) {
 
     return res.status(400).json({
@@ -235,7 +233,8 @@ app.use((err, req, res, next) => {
 
   // CAST ERROR
   if (
-    err.name === "CastError"
+    err.name ===
+    "CastError"
   ) {
 
     return res.status(400).json({
