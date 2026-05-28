@@ -1,10 +1,6 @@
 import { VisitorModel }
 from "../models/Visitor.js";
 
-import { io }
-from "../server.js";
-
-
 
 // ADD VISITOR
 export const addVisitor =
@@ -23,7 +19,6 @@ async (
     } = req.body;
 
 
-
     const visitor =
       await VisitorModel.create({
 
@@ -33,15 +28,6 @@ async (
 
         flatNumber
       });
-
-
-
-    // REAL-TIME SOCKET EVENT
-    io.emit(
-      "new_visitor",
-      visitor
-    );
-
 
 
     res.status(201).json({
@@ -75,7 +61,6 @@ async (
       await VisitorModel.find();
 
 
-
     res.status(200).json(
       visitors
     );
@@ -103,10 +88,8 @@ async (
       req.params;
 
 
-
     const visitor =
       await VisitorModel.findById(id);
-
 
 
     if (!visitor) {
@@ -119,27 +102,15 @@ async (
     }
 
 
-
     visitor.exitTime =
       new Date();
-
 
 
     visitor.status =
       "OUT";
 
 
-
     await visitor.save();
-
-
-
-    // REAL-TIME EXIT EVENT
-    io.emit(
-      "visitor_exit",
-      visitor
-    );
-
 
 
     res.status(200).json({

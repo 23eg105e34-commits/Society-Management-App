@@ -1,8 +1,7 @@
 import { NoticeModel }
 from "../models/Notice.js";
 
-import { io }
-from "../server.js";
+//import { io }from "../server.js";
 
 
 
@@ -32,10 +31,10 @@ export const addNotice = async (
 
 
     // REAL-TIME SOCKET EVENT
-    io.emit(
-      "new_notice",
-      notice
-    );
+    //io.emit(
+      //"new_notice",
+      //notice
+    //);
 
 
 
