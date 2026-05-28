@@ -1,0 +1,133 @@
+### ================================
+### AUTH APIs
+### ================================
+
+### Register User
+POST http://localhost:4000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Harsha",
+  "email": "harsha@gmail.com",
+  "password": "Harsha@123"
+}
+
+
+### Login User
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "harsha@gmail.com",
+  "password": "Harsha@123"
+}
+
+
+
+### ================================
+### VISITOR APIs
+### ================================
+
+### Add Visitor
+POST http://localhost:4000/api/visitors
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+{
+  "name": "Jhon",
+  "mobileNumber": "9876543200",
+  "flatNumber": "A-101"
+}
+
+
+### Get All Visitors
+GET http://localhost:4000/api/visitors
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+### Mark Visitor Exit
+PUT http://localhost:4000/api/visitors/6a085df20eb87eb617f41a6d/exit
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+### ================================
+### FACILITY APIs
+### ================================
+
+### Book Facility
+POST http://localhost:4000/api/facilities
+Content-Type: application/json
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+{
+  "facilityName": "gym",
+  "date": "2026-05-20",
+  "timeSlot": "10AM-11AM"
+}
+
+
+### Get All Facility Bookings
+GET http://localhost:4000/api/facilities
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+### Cancel Facility Booking
+PUT http://localhost:4000/api/facilities/6a0860dde15553c03b514eee/cancel
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+
+
+### ================================
+### PAYMENT APIs
+### ================================
+
+### Create Payment
+POST http://localhost:4000/api/payments
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+{
+  "user": "6a085d6e0eb87eb617f41a69",
+  "amount": 2500,
+  "month": "May-2026"
+}
+
+
+### Get All Payments
+GET http://localhost:4000/api/payments
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+
+### Pay Maintenance Bill
+PUT http://localhost:4000/api/payments/6a0861cbe15553c03b514ef5/pay
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+
+
+### NOTICE APIs
+
+
+### Create Notice
+POST http://localhost:4000/api/notices
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+{
+  "title": "Water Supply Maintenance",
+  "message": "Water supply will be unavailable from 10AM to 2PM."
+}
+
+
+### Get All Notices
+GET http://localhost:4000/api/notices
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
+
+
+
+### Delete Notice
+DELETE http://localhost:4000/api/notices/6a0861f2e15553c03b514efb
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTA4NWQ2ZTBlYjg3ZWI2MTdmNDFhNjkiLCJpYXQiOjE3Nzg5MzMxNDAsImV4cCI6MTc3OTAxOTU0MH0.VeFaUS5L43UYb76c6K7XupyQzWmrdGR4H6W6lshgOdQ
