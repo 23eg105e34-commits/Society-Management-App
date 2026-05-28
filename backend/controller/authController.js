@@ -14,6 +14,10 @@ export const Register = async (
 ) => {
 
   try {
+    console.log(
+      "REGISTER API HIT"
+    );
+
 
     const {
       name,
@@ -78,6 +82,7 @@ export const Login = async (
 ) => {
 
   try {
+    console.log("LOGIN API HIT");
 
     const {
       email,
