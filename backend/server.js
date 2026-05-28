@@ -76,13 +76,14 @@ app.use(
       "OPTIONS"
     ],
 
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], 
   })
 );
 
 
 // HANDLE PREFLIGHT REQUESTS
-//app.options("*", cors());
+app.options("*", cors());
 
 
 // BODY PARSER
