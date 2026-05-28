@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 });
 
 // HANDLE PREFLIGHT REQUESTS
-app.options("*", cors());
+//app.options("*", cors());
 
 
 // BODY PARSER
