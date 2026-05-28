@@ -22,33 +22,70 @@ config();
 const app = exp();
 
 
-// FRONTEND URL
-const FRONTEND_URL =
-  "https://society-management-app-ten.vercel.app";
+// =======================
+// ALLOWED FRONTEND URLS
+// =======================
+
+const allowedOrigins = [
+
+  "https://society-management-app-ten.vercel.app",
+
+  "https://society-management-qt2bi79xp-23eg105e34-commits-projects.vercel.app"
+];
 
 
 // =======================
 // CORS CONFIG
 // =======================
 
-const corsOptions = {
+app.use(
 
-  origin: FRONTEND_URL,
+  cors({
 
-  methods: [
-    "GET",
-    "POST",
-    "PUT",
-    "DELETE",
-    "OPTIONS"
-  ],
+    origin: function (
+      origin,
+      callback
+    ) {
 
-  credentials: true
-};
+      // ALLOW POSTMAN / MOBILE APPS
+      if (!origin) {
 
+        return callback(
+          null,
+          true
+        );
+      }
 
-// APPLY CORS
-app.use(cors(corsOptions));
+      if (
+        allowedOrigins.includes(origin)
+      ) {
+
+        callback(
+          null,
+          true
+        );
+
+      } else {
+
+        callback(
+          new Error(
+            "Not allowed by CORS"
+          )
+        );
+      }
+    },
+
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS"
+    ],
+
+    credentials: true
+  })
+);
 
 
 // BODY PARSER
@@ -270,7 +307,7 @@ app.use((err, req, res, next) => {
   }
 
 
-  // DEFAULT ERROR
+  // DEFAULT SERVER ERROR
   res.status(500).json({
 
     message:
