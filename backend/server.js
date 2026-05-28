@@ -21,66 +21,23 @@ config();
 // CREATE EXPRESS APP
 const app = exp();
 
-
 // =======================
 // CORS CONFIG
 // =======================
 
-app.use(
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  cors({
+  // Respond to preflight immediately
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
 
-    origin: function (
-      origin,
-      callback
-    ) {
-
-      // ALLOW REQUESTS WITHOUT ORIGIN
-      // (POSTMAN, MOBILE APPS, ETC.)
-      if (!origin) {
-
-        return callback(
-          null,
-          true
-        );
-      }
-
-
-      // ALLOW ALL VERCEL DOMAINS
-      if (
-        origin.includes(
-          "vercel.app"
-        )
-      ) {
-
-        return callback(
-          null,
-          true
-        );
-      }
-
-
-      // BLOCK OTHER ORIGINS
-      return callback(
-        new Error(
-          "Not allowed by CORS"
-        )
-      );
-    },
-
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE",
-      "OPTIONS"
-    ],
-
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"], 
-  })
-);
-
+  next();
+});
 
 // HANDLE PREFLIGHT REQUESTS
 app.options("*", cors());
