@@ -1,5 +1,5 @@
 import { ComplaintModel }
-from "../models/Complaint.js";
+from "../models/complaint.js";
 
 
 
