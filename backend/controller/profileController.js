@@ -4,7 +4,6 @@ import { UserModel }
 from "../models/User.js";
 
 
-
 // GET PROFILE
 export const getProfile =
 async (req, res, next) => {
@@ -13,9 +12,8 @@ async (req, res, next) => {
 
     const user =
       await UserModel.findById(
-        req.user.id
+        req.user.userId
       ).select("-password");
-
 
 
     res.status(200).json(user);
@@ -41,11 +39,10 @@ async (req, res, next) => {
     } = req.body;
 
 
-
     const updatedUser =
       await UserModel.findByIdAndUpdate(
 
-        req.user.id,
+        req.user.userId,
 
         {
           name,
@@ -57,7 +54,6 @@ async (req, res, next) => {
         }
 
       ).select("-password");
-
 
 
     res.status(200).json({
@@ -89,12 +85,10 @@ async (req, res, next) => {
     } = req.body;
 
 
-
     const user =
       await UserModel.findById(
-        req.user.id
+        req.user.userId
       );
-
 
 
     const isMatch =
@@ -104,7 +98,6 @@ async (req, res, next) => {
 
         user.password
       );
-
 
 
     if (!isMatch) {
@@ -117,7 +110,6 @@ async (req, res, next) => {
     }
 
 
-
     const hashedPassword =
       await bcrypt.hash(
         newPassword,
@@ -125,14 +117,11 @@ async (req, res, next) => {
       );
 
 
-
     user.password =
       hashedPassword;
 
 
-
     await user.save();
-
 
 
     res.status(200).json({

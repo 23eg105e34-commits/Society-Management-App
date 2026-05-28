@@ -2,8 +2,6 @@ import { ComplaintModel }
 from "../models/complaint.js";
 
 
-
-
 // ADD COMPLAINT
 export const addComplaint =
 async (
@@ -20,7 +18,6 @@ async (
     } = req.body;
 
 
-
     const complaint =
       await ComplaintModel.create({
 
@@ -29,9 +26,8 @@ async (
         description,
 
         resident:
-          req.user.id
+          req.user.userId
       });
-
 
 
     res.status(201).json({
@@ -64,7 +60,6 @@ async (
     let complaints;
 
 
-
     // OWNER -> ALL
     if (
       req.user.role ===
@@ -92,14 +87,13 @@ async (
         await ComplaintModel.find({
 
           resident:
-            req.user.id
+            req.user.userId
         })
 
         .sort({
           createdAt: -1
         });
     }
-
 
 
     res.status(200).json(
@@ -129,12 +123,10 @@ async (
       req.params;
 
 
-
     const complaint =
       await ComplaintModel.findById(
         id
       );
-
 
 
     if (!complaint) {
@@ -147,14 +139,11 @@ async (
     }
 
 
-
     complaint.status =
       req.body.status;
 
 
-
     await complaint.save();
-
 
 
     res.status(200).json({
