@@ -35,7 +35,7 @@ const server = http.createServer(app);
 
 // FRONTEND URL
 const FRONTEND_URL =
-  "https://society-management-app.vercel.app";
+  "https://society-management-app-ten.vercel.app";
 
 
 // SOCKET.IO SERVER

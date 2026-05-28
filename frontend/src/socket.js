@@ -3,7 +3,7 @@ from "socket.io-client";
 
 
 const socket =
-  io("http://localhost:4000");
+  io("https://society-management-app-production-3b8b.up.railway.app");
 
 
 export default socket;
