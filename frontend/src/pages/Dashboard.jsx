@@ -14,9 +14,7 @@ import {
   FaDoorOpen,
   FaChartLine,
   FaSignOutAlt,
-  FaUserCircle,
-  FaMoon,
-  FaSun
+  FaUserCircle
 } from "react-icons/fa";
 
 import { useAuth } from "../store/authStore";
@@ -29,7 +27,8 @@ import NotificationBell from "../components/NotificationBell";
 
 import AnalyticsChart from "../components/AnalyticsChart";
 
-import socket from "../socket";
+// SOCKET REMOVED
+// import socket from "../socket";
 
 
 function Dashboard() {
@@ -65,7 +64,6 @@ function Dashboard() {
     );
 
 
-
   // DASHBOARD STATS
   const stats =
     useDashboardStore(
@@ -81,51 +79,8 @@ function Dashboard() {
     );
 
 
-
-
-  // SOCKET + LIVE UPDATE
+  // FETCH DASHBOARD DATA ONLY
   useEffect(() => {
-
-    socket.on(
-
-      "connect",
-
-      () => {
-
-        console.log(
-          "Connected to socket server"
-        );
-      }
-    );
-
-
-
-    socket.on(
-
-      "new_notice",
-
-      (data) => {
-
-        console.log(
-          "New Notice Received:",
-          data
-        );
-      }
-    );
-
-
-
-    socket.on(
-
-      "dashboard_update",
-
-      () => {
-
-        getStats();
-      }
-    );
-
-
 
     if (
       currentUser?.role ===
@@ -135,28 +90,7 @@ function Dashboard() {
       getStats();
     }
 
-
-
-    return () => {
-
-      socket.off(
-        "connect"
-      );
-
-      socket.off(
-        "new_notice"
-      );
-
-      socket.off(
-        "dashboard_update"
-      );
-    };
-
   }, [currentUser]);
-
-
-
-
 
 
 
@@ -170,13 +104,6 @@ function Dashboard() {
 
 
 
-
-
-
-
-
-
-
   return (
 
     <div className="min-h-screen bg-gray-100 dark:bg-slate-950 text-black dark:text-white overflow-hidden relative transition-all duration-500">
@@ -185,13 +112,6 @@ function Dashboard() {
       <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/20 blur-[120px] rounded-full"></div>
 
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/20 blur-[120px] rounded-full"></div>
-
-
-
-
-
-
-
 
 
       {/* NAVBAR */}
@@ -215,23 +135,11 @@ function Dashboard() {
         </div>
 
 
-
-
-
-
-
-
         {/* RIGHT SECTION */}
         <div className="flex items-center gap-4">
 
-          {/* THEME TOGGLE */}
-          
-
-
-
           {/* NOTIFICATION */}
           <NotificationBell />
-
 
 
           {/* PROFILE DROPDOWN */}
@@ -263,10 +171,6 @@ function Dashboard() {
             </button>
 
 
-
-
-
-
             {/* DROPDOWN */}
             <div className="absolute right-0 mt-3 w-60 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-gray-200 dark:border-white/10 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
 
@@ -285,9 +189,6 @@ function Dashboard() {
               </button>
 
 
-
-
-
               {/* SETTINGS */}
               <button
                 className="w-full flex items-center gap-3 px-6 py-4 hover:bg-gray-100 dark:hover:bg-white/10 transition-all text-black dark:text-white"
@@ -298,10 +199,6 @@ function Dashboard() {
                 Settings
 
               </button>
-
-
-
-
 
 
               {/* LOGOUT */}
@@ -323,9 +220,6 @@ function Dashboard() {
         </div>
 
       </div>
-
-
-
 
 
       {/* MAIN CONTENT */}
@@ -364,8 +258,6 @@ function Dashboard() {
 
               </h2>
 
-
-
               <p className="text-gray-700 dark:text-gray-300 text-lg">
 
                 Manage your society with real-time analytics,
@@ -374,10 +266,6 @@ function Dashboard() {
               </p>
 
             </div>
-
-
-
-
 
 
             <div className="bg-cyan-500/10 border border-cyan-500/20 px-6 py-5 rounded-3xl">
@@ -401,87 +289,6 @@ function Dashboard() {
         </motion.div>
 
 
-
-
-
-
-
-
-        {/* RESIDENT DASHBOARD */}
-        {currentUser?.role ===
-          "RESIDENT" && (
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-            <DashboardCard
-              title="Visitors"
-              description="Manage society visitors"
-              icon={<FaUserFriends />}
-              color="from-cyan-500 to-blue-600"
-              onClick={() =>
-                navigate("/visitors")
-              }
-            />
-
-
-
-            <DashboardCard
-              title="Facilities"
-              description="Book society facilities"
-              icon={<FaBuilding />}
-              color="from-green-500 to-emerald-600"
-              onClick={() =>
-                navigate("/facilities")
-              }
-            />
-
-
-
-            <DashboardCard
-              title="Payments"
-              description="Pay maintenance bills"
-              icon={<FaMoneyBillWave />}
-              color="from-purple-500 to-indigo-600"
-              onClick={() =>
-                navigate("/payments")
-              }
-            />
-
-
-
-            <DashboardCard
-              title="Notices"
-              description="View society notices"
-              icon={<FaBell />}
-              color="from-orange-500 to-red-500"
-              onClick={() =>
-                navigate("/notices")
-              }
-            />
-
-
-
-            <DashboardCard
-              title="Complaints"
-              description="Raise complaints easily"
-              icon={<FaClipboardList />}
-              color="from-pink-500 to-rose-600"
-              onClick={() =>
-                navigate("/complaints")
-              }
-            />
-
-          </div>
-
-        )}
-
-
-
-
-
-
-
-
         {/* OWNER DASHBOARD */}
         {currentUser?.role ===
           "OWNER" && (
@@ -498,16 +305,12 @@ function Dashboard() {
                 color="from-cyan-500 to-blue-600"
               />
 
-
-
               <StatsCard
                 title="Pending Payments"
                 value={stats?.pendingPayments || 0}
                 icon={<FaMoneyBillWave />}
                 color="from-red-500 to-pink-600"
               />
-
-
 
               <StatsCard
                 title="Paid Payments"
@@ -516,16 +319,12 @@ function Dashboard() {
                 color="from-green-500 to-emerald-600"
               />
 
-
-
               <StatsCard
                 title="Facilities"
                 value={stats?.pendingFacilities || 0}
                 icon={<FaBuilding />}
                 color="from-yellow-400 to-orange-500"
               />
-
-
 
               <StatsCard
                 title="Visitors"
@@ -535,10 +334,6 @@ function Dashboard() {
               />
 
             </div>
-
-
-
-
 
 
             {/* ANALYTICS */}
@@ -556,8 +351,6 @@ function Dashboard() {
 
               </div>
 
-
-
               <AnalyticsChart
 
                 paidPayments={
@@ -572,74 +365,6 @@ function Dashboard() {
 
             </div>
 
-
-
-
-
-
-            {/* QUICK ACTIONS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
-
-              <DashboardCard
-                title="Notices"
-                description="Manage notices"
-                icon={<FaBell />}
-                color="from-orange-500 to-red-500"
-                onClick={() =>
-                  navigate("/notices")
-                }
-              />
-
-
-
-              <DashboardCard
-                title="Payments"
-                description="Manage payments"
-                icon={<FaMoneyBillWave />}
-                color="from-purple-500 to-indigo-600"
-                onClick={() =>
-                  navigate("/payments")
-                }
-              />
-
-
-
-              <DashboardCard
-                title="Facilities"
-                description="Approve facilities"
-                icon={<FaBuilding />}
-                color="from-green-500 to-emerald-600"
-                onClick={() =>
-                  navigate("/facilities")
-                }
-              />
-
-
-
-              <DashboardCard
-                title="Visitors"
-                description="Monitor visitors"
-                icon={<FaUserFriends />}
-                color="from-cyan-500 to-blue-600"
-                onClick={() =>
-                  navigate("/visitors")
-                }
-              />
-
-
-
-              <DashboardCard
-                title="Complaints"
-                description="Resolve complaints"
-                icon={<FaClipboardList />}
-                color="from-pink-500 to-rose-600"
-                onClick={() =>
-                  navigate("/complaints")
-                }
-              />
-
-            </div>
-
           </>
 
         )}
@@ -647,140 +372,6 @@ function Dashboard() {
       </div>
 
     </div>
-  );
-}
-
-
-
-
-
-
-
-
-
-
-// STATS CARD
-function StatsCard({
-  title,
-  value,
-  icon,
-  color
-}) {
-
-  return (
-
-    <motion.div
-
-      whileHover={{
-        scale: 1.03
-      }}
-
-      className={`bg-gradient-to-br ${color} rounded-[28px] p-6 shadow-2xl`}
-    >
-
-      <div className="flex justify-between items-center">
-
-        <div>
-
-          <p className="text-white/80">
-
-            {title}
-
-          </p>
-
-
-
-          <h2 className="text-5xl font-bold text-white mt-3">
-
-            {value}
-
-          </h2>
-
-        </div>
-
-
-
-        <div className="text-5xl text-white/80">
-
-          {icon}
-
-        </div>
-
-      </div>
-
-    </motion.div>
-
-  );
-}
-
-
-
-
-
-
-
-
-
-
-// DASHBOARD CARD
-function DashboardCard({
-  title,
-  description,
-  icon,
-  color,
-  onClick
-}) {
-
-  return (
-
-    <motion.div
-
-      whileHover={{
-        scale: 1.03,
-        y: -5
-      }}
-
-      whileTap={{
-        scale: 0.98
-      }}
-
-      onClick={onClick}
-
-      className={`bg-gradient-to-br ${color} p-7 rounded-[30px] shadow-2xl cursor-pointer relative overflow-hidden`}
-    >
-
-      <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
-
-
-
-      <div className="relative z-10">
-
-        <div className="text-5xl text-white/90 mb-6">
-
-          {icon}
-
-        </div>
-
-
-
-        <h2 className="text-3xl font-bold text-white mb-3">
-
-          {title}
-
-        </h2>
-
-
-
-        <p className="text-white/80 text-lg">
-
-          {description}
-
-        </p>
-
-      </div>
-
-    </motion.div>
-
   );
 }
 

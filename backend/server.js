@@ -2,8 +2,6 @@ import exp from "express";
 import { connect } from "mongoose";
 import { config } from "dotenv";
 import cors from "cors";
-import http from "http";
-import { Server } from "socket.io";
 
 import authRoutes from "./routes/authRoutes.js";
 import facilityRoutes from "./routes/facilityRoutes.js";
@@ -22,10 +20,6 @@ config();
 
 // CREATE EXPRESS APP
 const app = exp();
-
-
-// CREATE HTTP SERVER
-const server = http.createServer(app);
 
 
 // FRONTEND URL
@@ -57,39 +51,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-// HANDLE PREFLIGHT REQUESTS
-//app.options("*", cors(corsOptions));
-
-
 // BODY PARSER
 app.use(exp.json());
-
-
-// =======================
-// SOCKET.IO
-// =======================
-
-export const io = new Server(server, {
-
-  cors: corsOptions
-});
-
-
-// SOCKET CONNECTION
-io.on("connection", (socket) => {
-
-  console.log(
-    "User Connected:",
-    socket.id
-  );
-
-  socket.on("disconnect", () => {
-
-    console.log(
-      "User Disconnected"
-    );
-  });
-});
 
 
 // =======================
@@ -170,7 +133,7 @@ const connectDB = async () => {
       "DB connection Success"
     );
 
-    server.listen(
+    app.listen(
       process.env.PORT || 4000,
 
       () => {

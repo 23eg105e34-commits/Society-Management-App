@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 
 import toast from "react-hot-toast";
 
-import socket from "../socket";
+// import socket from "../socket";
 
 import { useNoticeStore } from "../store/noticeStore";
-
-
 
 function NotificationBell() {
 
   const [open, setOpen] =
     useState(false);
-
 
   const notices =
     useNoticeStore(
@@ -20,13 +17,11 @@ function NotificationBell() {
         state.notices
     );
 
-
   const getNotices =
     useNoticeStore(
       (state) =>
         state.getNotices
     );
-
 
   const markAsRead =
     useNoticeStore(
@@ -35,54 +30,13 @@ function NotificationBell() {
     );
 
 
-
-  // FETCH + SOCKET
+  // FETCH ONLY
   useEffect(() => {
 
     // FETCH OLD NOTICES
     getNotices();
 
-
-
-    // LIVE SOCKET EVENT
-    socket.on(
-
-      "new_notice",
-
-      (newNotice) => {
-
-        console.log(
-          "New Notice:",
-          newNotice
-        );
-
-
-
-        // TOAST
-        toast.success(
-          "New Notice Received 🔔"
-        );
-
-
-
-        // REFRESH NOTICES
-        getNotices();
-      }
-    );
-
-
-
-    // CLEANUP
-    return () => {
-
-      socket.off(
-        "new_notice"
-      );
-    };
-
   }, []);
-
-
 
 
   // UNREAD NOTICES
@@ -93,14 +47,11 @@ function NotificationBell() {
     );
 
 
-
-
   // OPEN BELL
   const handleBellClick =
     async () => {
 
       setOpen(!open);
-
 
       // MARK READ
       if (!open) {
@@ -110,8 +61,6 @@ function NotificationBell() {
         getNotices();
       }
     };
-
-
 
 
   return (
@@ -128,8 +77,6 @@ function NotificationBell() {
 
         🔔
 
-
-
         {/* UNREAD COUNT */}
         {unreadNotices.length > 0 && (
 
@@ -144,7 +91,6 @@ function NotificationBell() {
       </button>
 
 
-
       {/* DROPDOWN */}
       {open && (
 
@@ -156,7 +102,6 @@ function NotificationBell() {
             Notifications
 
           </div>
-
 
 
           {/* BODY */}
@@ -189,13 +134,11 @@ function NotificationBell() {
 
                   </h3>
 
-
                   <p className="text-sm text-gray-600 mt-1">
 
                     {notice.description}
 
                   </p>
-
 
                   <p className="text-xs text-gray-400 mt-2">
 
