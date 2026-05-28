@@ -1,13 +1,8 @@
 import exp from "express";
-
 import { connect } from "mongoose";
-
 import { config } from "dotenv";
-
 import cors from "cors";
-
 import http from "http";
-
 import { Server } from "socket.io";
 
 import authRoutes from "./routes/authRoutes.js";
@@ -38,22 +33,45 @@ const FRONTEND_URL =
   "https://society-management-app-ten.vercel.app";
 
 
-// SOCKET.IO SERVER
+// =======================
+// CORS CONFIG
+// =======================
+
+const corsOptions = {
+
+  origin: FRONTEND_URL,
+
+  methods: [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "OPTIONS"
+  ],
+
+  credentials: true
+};
+
+
+// APPLY CORS
+app.use(cors(corsOptions));
+
+
+// HANDLE PREFLIGHT REQUESTS
+app.options("*", cors(corsOptions));
+
+
+// BODY PARSER
+app.use(exp.json());
+
+
+// =======================
+// SOCKET.IO
+// =======================
+
 export const io = new Server(server, {
 
-  cors: {
-
-    origin: FRONTEND_URL,
-
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE"
-    ],
-
-    credentials: true
-  }
+  cors: corsOptions
 });
 
 
@@ -74,18 +92,10 @@ io.on("connection", (socket) => {
 });
 
 
-// MIDDLEWARE
-app.use(
-  cors({
-    origin: FRONTEND_URL,
-    credentials: true
-  })
-);
-
-app.use(exp.json());
-
-
+// =======================
 // TEST ROUTE
+// =======================
+
 app.get("/", (req, res) => {
 
   res.send(
@@ -94,7 +104,10 @@ app.get("/", (req, res) => {
 });
 
 
+// =======================
 // ROUTES
+// =======================
+
 app.use(
   "/api/auth",
   authRoutes
@@ -141,7 +154,10 @@ app.use(
 );
 
 
-// CONNECT DB & START SERVER
+// =======================
+// DATABASE CONNECTION
+// =======================
+
 const connectDB = async () => {
 
   try {
@@ -179,7 +195,10 @@ const connectDB = async () => {
 connectDB();
 
 
-// ERROR HANDLING MIDDLEWARE
+// =======================
+// ERROR HANDLER
+// =======================
+
 app.use((err, req, res, next) => {
 
   console.log(
@@ -258,10 +277,8 @@ app.use((err, req, res, next) => {
         keyValue
       )[0];
 
-
     const value =
       keyValue[field];
-
 
     return res.status(409).json({
 
@@ -290,7 +307,7 @@ app.use((err, req, res, next) => {
   }
 
 
-  // DEFAULT SERVER ERROR
+  // DEFAULT ERROR
   res.status(500).json({
 
     message:
