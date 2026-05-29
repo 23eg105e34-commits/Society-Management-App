@@ -24,7 +24,6 @@ import NotificationBell from "../components/NotificationBell";
 
 import AnalyticsChart from "../components/AnalyticsChart";
 
-import socket from "../socket";
 
 
 function Dashboard() {
@@ -62,74 +61,12 @@ function Dashboard() {
     );
 
 
-
-  // SOCKET + LIVE UPDATE
-  useEffect(() => {
-
-    socket.on(
-      "connect",
-
-      () => {
-
-        console.log(
-          "Connected to socket server"
-        );
-      }
-    );
-
-
-
-    socket.on(
-      "new_notice",
-
-      (data) => {
-
-        console.log(
-          "New Notice Received:",
-          data
-        );
-      }
-    );
-
-
-
-    socket.on(
-      "dashboard_update",
-
-      () => {
-
-        getStats();
-      }
-    );
-
-
-
-    if (
-      currentUser?.role ===
-      "OWNER"
-    ) {
-
-      getStats();
-    }
-
-
-
-    return () => {
-
-      socket.off(
-        "connect"
-      );
-
-      socket.off(
-        "new_notice"
-      );
-
-      socket.off(
-        "dashboard_update"
-      );
-    };
-
-  }, [currentUser]);
+// FETCH DASHBOARD STATS
+useEffect(() => {
+  if (currentUser?.role === "OWNER") {
+    getStats();
+  }
+}, [currentUser, getStats]);
 
 
 
