@@ -143,6 +143,7 @@ function Visitors() {
     };
 
 
+console.log("Visitors State:", visitors);
   return (
 
     <div className="min-h-screen bg-slate-950 p-6 md:p-10">
