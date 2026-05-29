@@ -28,6 +28,7 @@ const app = exp();
 // =======================
 // CORS CONFIG
 // =======================
+
 const corsOptions = {
   origin: [
     "http://localhost:5173",
@@ -39,12 +40,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// Handle preflight requests — use the SAME options
-app.options("*", cors(corsOptions));
-
-// Handle preflight requests
-app.options("*", cors());
+// app.use(cors()) already handles OPTIONS preflight — no app.options() needed
 
 // =======================
 // BODY PARSER
@@ -65,21 +61,13 @@ app.get("/", (req, res) => {
 // =======================
 
 app.use("/api/auth", authRoutes);
-
 app.use("/api/facilities", facilityRoutes);
-
 app.use("/api/visitors", visitorRoutes);
-
 app.use("/api/payments", paymentRoutes);
-
 app.use("/api/notices", noticeRoutes);
-
 app.use("/api/users", userRoutes);
-
 app.use("/api/dashboard", dashboardRoutes);
-
 app.use("/api/complaints", complaintRoutes);
-
 app.use("/api/profile", profileRoutes);
 
 // =======================
