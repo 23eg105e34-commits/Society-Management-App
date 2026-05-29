@@ -20,7 +20,7 @@ import profileRoutes from "./routes/profileRoutes.js";
 config();
 
 // =======================
-// CREATE APP
+// CREATE EXPRESS APP
 // =======================
 
 const app = exp();
@@ -35,12 +35,9 @@ const corsOptions = {
     "https://society-management-app-ten.vercel.app",
   ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
-// app.use(cors()) already handles OPTIONS preflight — no app.options() needed
 
 // =======================
 // BODY PARSER
@@ -86,7 +83,7 @@ const connectDB = async () => {
       console.log(`🚀 Server started on port ${PORT}`);
     });
   } catch (err) {
-    console.log("❌ Error connecting DB");
+    console.log("❌ Error in connecting DB");
     console.log(err);
   }
 };
