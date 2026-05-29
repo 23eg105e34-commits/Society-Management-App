@@ -28,16 +28,20 @@ const app = exp();
 // =======================
 // CORS CONFIG
 // =======================
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "https://society-management-app-ten.vercel.app",
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://society-management-app-ten.vercel.app",
-    ],
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
+
+// Handle preflight requests — use the SAME options
+app.options("*", cors(corsOptions));
 
 // Handle preflight requests
 app.options("*", cors());
