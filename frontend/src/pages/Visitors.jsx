@@ -262,6 +262,73 @@ console.log("Visitors State:", visitors);
 
         </form>
 
+           </motion.div>
+
+      {/* VISITORS LIST */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white/10 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl"
+      >
+        <h2 className="text-2xl font-bold text-white mb-6">
+          Visitors List
+        </h2>
+
+        {filteredVisitors.length === 0 ? (
+          <p className="text-gray-400">
+            No visitors found
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-white">
+              <thead>
+                <tr className="border-b border-white/20">
+                  <th className="text-left p-3">Name</th>
+                  <th className="text-left p-3">Mobile</th>
+                  <th className="text-left p-3">Flat</th>
+                  <th className="text-left p-3">Status</th>
+                  <th className="text-left p-3">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredVisitors.map((visitor) => (
+                  <tr
+                    key={visitor._id}
+                    className="border-b border-white/10"
+                  >
+                    <td className="p-3">
+                      {visitor.name}
+                    </td>
+
+                    <td className="p-3">
+                      {visitor.mobileNumber}
+                    </td>
+
+                    <td className="p-3">
+                      {visitor.flatNumber}
+                    </td>
+
+                    <td className="p-3">
+                      {visitor.status || "IN"}
+                    </td>
+
+                    <td className="p-3">
+                      <button
+                        onClick={() =>
+                          handleExit(visitor._id)
+                        }
+                        className="bg-red-500 hover:bg-red-600 px-3 py-2 rounded-lg"
+                      >
+                        Exit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </motion.div>
 
     </div>
