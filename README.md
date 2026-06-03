@@ -75,4 +75,30 @@ The Society Management System helps residents, security guards, and administrato
 
 ---
 
-## 📂 Project Structure
+Project Structure:
+
+
+society-management/
+│
+├── frontend/
+│ ├── src/
+│ │ ├── components/
+│ │ ├── pages/
+│ │ ├── routes/
+│ │ ├── store/
+│ │ ├── services/
+│ │ └── assets/
+│ │
+│ └── package.json
+│
+├── backend/
+│ ├── controllers/
+│ ├── models/
+│ ├── routes/
+│ ├── middleware/
+│ ├── config/
+│ ├── utils/
+│ └── server.js
+│
+├── README.md
+└── .gitignore
