@@ -29,13 +29,12 @@ const app = exp();
 // CORS CONFIG
 // =======================
 
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://society-management-app-ten.vercel.app",
-  ],
-  credentials: true,
-};
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 app.use(cors(corsOptions));
 
