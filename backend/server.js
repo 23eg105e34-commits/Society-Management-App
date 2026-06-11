@@ -13,15 +13,7 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 import complaintRoutes from "./routes/complaintRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 
-// =======================
-// LOAD ENV VARIABLES
-// =======================
-
 config();
-
-// =======================
-// CREATE EXPRESS APP
-// =======================
 
 const app = exp();
 
@@ -35,8 +27,6 @@ app.use(
     credentials: true,
   })
 );
-
-app.use(cors(corsOptions));
 
 // =======================
 // BODY PARSER
