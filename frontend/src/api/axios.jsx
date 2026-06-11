@@ -1,11 +1,9 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL:
-    "https://society-management-app-production-cd99.up.railway.app/api",
+  baseURL: "https://society-management-app-1.onrender.com/api",
 });
 
-// attach token automatically
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
 
