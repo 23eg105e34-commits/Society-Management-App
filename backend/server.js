@@ -34,6 +34,12 @@ app.use(
 
 app.use(exp.json());
 
+app.get("/test", (req, res) => {
+  res.json({
+    success: true,
+    message: "Backend is working",
+  });
+});
 // =======================
 // TEST ROUTE
 // =======================
