@@ -17,6 +17,8 @@ config();
 
 const app = exp();
 
+const app = exp();
+
 // =======================
 // CORS CONFIG
 // =======================
@@ -27,6 +29,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.options("*", cors());
 
 // =======================
 // BODY PARSER
